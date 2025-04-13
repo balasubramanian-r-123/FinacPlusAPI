@@ -36,11 +36,12 @@ public class APIOperations extends BaseClass {
 
         // Since this is not a live API, the post request doesn't actually create the user.
         // So, we can't retrieve the user details through userId. It'll give null as user name
+        // Therefore I didn't validate the status code and also the name
         Response getResponse = given()
                 .when()
                 .get("/users/" + userId);
         String name = getResponse.jsonPath().getString("name");
-        softAssert.assertEquals(name, initialName);
+        softAssert.assertEquals(name, initialName); // since the name will be null from API response, I used soft assertion to not stop the execution
     }
 
     @Test
@@ -63,12 +64,14 @@ public class APIOperations extends BaseClass {
         String userId = response.jsonPath().getString("id");
 
 
-        // Since this is not a live API, the put request doesn't actually update the user.
+        // Since this is not a live API, the post request doesn't actually create the user.
         // So, we can't retrieve the user details through userId. It'll give null as user name
+        // Therefore I didn't validate the status code and also the name
+
         Response getResponse = given()
                 .when()
                 .get("/users/" + userId);
         String name = getResponse.jsonPath().getString("name");
-        softAssert.assertEquals(name, updatedName);
+        softAssert.assertEquals(name, updatedName); // since the name will be null from API response, I used soft assertion to not stop the execution
     }
 }
